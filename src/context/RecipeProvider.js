@@ -2,36 +2,49 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import FoodContext from './FoodContext';
 import DrinkContext from './DrinkContext';
+import LoginContext from './LoginContext';
 
 function RecipeProvider({ children }) {
-  const [user, setUser] = useState({ email: '', senha: '' });
-  // const [food, setFood] = useState([]);
-  // const [drink, setDrink] = useState([]);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginDisabled, setLoginDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [food, setFood] = useState([]);
+  const [drink, setDrink] = useState([]);
 
-  const login = (value) => {
-    setUser({
-      email: value.email,
-      senha: value.senha,
-    });
+  const loginContext = {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    loginDisabled,
+    setLoginDisabled,
+    isLoading,
+    setIsLoading,
   };
 
   const foodContext = {
-    user,
-    login,
+    email,
+    setEmail,
     food,
+    setFood,
   };
 
   const drinkContext = {
-    user,
+    email,
+    setEmail,
     drink,
+    setDrink,
   };
 
   return (
-    <FoodContext.Provider value={ foodContext }>
-      <DrinkContext.Provider value={ drinkContext }>
-        { children }
-      </DrinkContext.Provider>
-    </FoodContext.Provider>
+    <LoginContext.Provider value={ loginContext }>
+      <FoodContext.Provider value={ foodContext }>
+        <DrinkContext.Provider value={ drinkContext }>
+          { children }
+        </DrinkContext.Provider>
+      </FoodContext.Provider>
+    </LoginContext.Provider>
   );
 }
 
