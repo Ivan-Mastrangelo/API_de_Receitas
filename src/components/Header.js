@@ -1,29 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function Header(
   { icon1, nameIcon1, pageName, icon2, nameIcon2, iconId1, nameId, iconId2 },
 ) {
+  const [search, setSearch] = useState(false);
+  const clickSearch = () => {
+    setSearch(!search);
+  };
+
+  const renderButton = () => {
+    if (pageName === 'Foods'
+      || pageName === 'Drinks'
+      || pageName === 'Explore Nationalities') {
+      return (
+        <button
+          type="button"
+          onClick={ () => clickSearch() }
+        >
+          <img
+            src={ icon2 }
+            alt={ nameIcon2 }
+            data-testid={ iconId2 }
+          />
+        </button>
+      );
+    }
+  };
+
   return (
     <header>
       <span>
-        <img
-          src={ icon1 }
-          alt={ nameIcon1 }
-          data-testid={ iconId1 }
-        />
+        <Link to="/profile">
+          <img
+            src={ icon1 }
+            alt={ nameIcon1 }
+            data-testid={ iconId1 }
+          />
+        </Link>
       </span>
+      <h1
+        data-testid={ nameId }
+      >
+        {pageName}
+      </h1>
       <span>
-        <h1
-          data-testid={ nameId }
-        >
-          {pageName}
-        </h1>
-      </span>
-      <span>
-        { pageName === 'Food' || pageName === 'Drink'
-          ? <img src={ icon2 } alt={ nameIcon2 } data-testid={ iconId2 } />
-          : <> </>}
+        {renderButton()}
+        { search && <input type="text" data-testid="search-input" />}
       </span>
     </header>
   );
