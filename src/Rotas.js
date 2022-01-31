@@ -34,7 +34,7 @@ export default function Routes() {
         <Route exact path="/explore/foods" component={ ExploreFood } />
         <Route exact path="/explore/drinks" component={ ExploreDrink } />
         <Route exact path="/explore/foods/ingredients" component={ FoodIng } />
-        <Route exact path="/explore/foods/ingredients" component={ DrinksIng } />
+        <Route exact path="/explore/drinks/ingredients" component={ DrinksIng } />
         <Route exact path="/explore/foods/nationalities" component={ Nationalities } />
         <Route exact path="/profile" component={ Profile } />
         <Route exact path="/done-recipes" component={ Done } />
