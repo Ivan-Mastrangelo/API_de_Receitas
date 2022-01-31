@@ -9,7 +9,7 @@ function ExploreDrinksIngredients() {
       icon1={ profileIcon }
       nameIcon1="profile-icon"
       iconId1="profile-top-btn"
-      pageName="Explore Drinks Ingredients"
+      pageName="Explore Ingredients"
       nameId="page-title"
       icon2={ searchIcon }
       nameIcon2="explore-icon"
@@ -18,4 +18,4 @@ function ExploreDrinksIngredients() {
   );
 }
 
-export default ExploreDrinksIngredients();
+export default ExploreDrinksIngredients;
