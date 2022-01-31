@@ -1,14 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import DrinkCards from '../components/DrinkCards';
+import FoodCards from '../components/FoodCards';
 import Header from '../components/Header';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import DrinkContext from '../context/DrinkContext';
-import FoodContext from '../context/FoodContext';
 
 function Foods() {
-  const { food, setFood } = useContext(FoodContext);
-  const { drink, setDrink } = useContext(DrinkContext);
-
   return (
     <>
       <Header
@@ -21,12 +18,8 @@ function Foods() {
         nameIcon2="explore-icon"
         iconId2="search-top-btn"
       />
-      <div>
-        comidas
-      </div>
-      <div>
-        bebidas
-      </div>
+      <FoodCards />
+      <DrinkCards />
     </>
   );
 }
