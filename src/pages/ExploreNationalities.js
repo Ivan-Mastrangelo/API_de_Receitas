@@ -18,4 +18,4 @@ function ExploreNationalities() {
   );
 }
 
-export default ExploreNationalities();
+export default ExploreNationalities;
