@@ -41,3 +41,14 @@ export async function getRandomDrink() {
     console.error(error);
   }
 }
+
+// Retorna todas as receitas de drinks
+export async function getAllDrinks() {
+  try {
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+}
