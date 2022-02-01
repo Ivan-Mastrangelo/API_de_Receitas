@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import FoodContext from './FoodContext';
 import DrinkContext from './DrinkContext';
 import LoginContext from './LoginContext';
+import { getAllMeal, getMealCategories } from '../services/foodAPI';
+import { getAllDrinks, getDrinkCategories } from '../services/drinkAPI';
 
 function RecipeProvider({ children }) {
   const [email, setEmail] = useState('');
@@ -11,6 +13,42 @@ function RecipeProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   const [food, setFood] = useState([]);
   const [drink, setDrink] = useState([]);
+  const [foodCategory, setFoodCategory] = useState([]);
+  const [drinkCategory, setDrinkCategory] = useState([]);
+
+  useEffect(() => {
+    const fetchAPI = async () => {
+      const response = await getAllMeal();
+      setFood(response);
+    };
+    fetchAPI();
+  }, []);
+
+  useEffect(() => {
+    const fetchAPI = async () => {
+      const response = await getAllDrinks();
+      setDrink(response);
+    };
+    fetchAPI();
+  }, []);
+
+  useEffect(() => {
+    const fetchAPIFoodCategory = async () => {
+      const response = await getMealCategories();
+      setFoodCategory(response);
+      console.log(response);
+    };
+    fetchAPIFoodCategory();
+  }, []);
+
+  useEffect(() => {
+    const fetchAPIDrinkCategory = async () => {
+      const response = await getDrinkCategories();
+      setDrinkCategory(response);
+      console.log(response);
+    };
+    fetchAPIDrinkCategory();
+  }, []);
 
   const loginContext = {
     email,
@@ -28,6 +66,7 @@ function RecipeProvider({ children }) {
     setEmail,
     food,
     setFood,
+    foodCategory,
   };
 
   const drinkContext = {
@@ -35,6 +74,7 @@ function RecipeProvider({ children }) {
     setEmail,
     drink,
     setDrink,
+    drinkCategory,
   };
 
   return (
