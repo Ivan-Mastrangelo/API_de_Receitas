@@ -52,3 +52,14 @@ export async function getAllDrinks() {
     console.error(error);
   }
 }
+
+// Retorna bebidas da categoria selecionada
+export async function getDrinkByCategory(param) {
+  try {
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${param}`);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+}
