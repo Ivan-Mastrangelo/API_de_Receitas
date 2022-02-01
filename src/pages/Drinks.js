@@ -3,6 +3,8 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import DrinkCards from '../components/DrinkCards';
+import DrinkPageButtons from '../components/DrinkPageButtons';
 
 function Drinks() {
   return (
@@ -17,6 +19,8 @@ function Drinks() {
         nameIcon2="explore-icon"
         iconId2="search-top-btn"
       />
+      <DrinkPageButtons />
+      <DrinkCards />
       <Footer />
     </>
   );
