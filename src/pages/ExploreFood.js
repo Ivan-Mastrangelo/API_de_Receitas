@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-// import Footer from '../components/Footer';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -54,7 +54,7 @@ export default function ExploreFood() {
       >
         Surprise me!
       </button>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

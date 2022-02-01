@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
-// import Footer from '../components/Footer';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
@@ -31,6 +31,7 @@ export default function ExploreDrinks() {
         nameIcon2="explore-icon"
         iconId2="search-top-btn"
       />
+
       <Link to="/explore/drinks/ingredients">
         <button
           type="button"
@@ -46,7 +47,7 @@ export default function ExploreDrinks() {
       >
         Surprise me!
       </button>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
