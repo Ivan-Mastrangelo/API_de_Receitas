@@ -1,6 +1,7 @@
 import React from 'react';
 import FoodCards from '../components/FoodCards';
 import FoodPageButtons from '../components/FoodPageButtons';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -20,6 +21,7 @@ function Foods() {
       />
       <FoodPageButtons />
       <FoodCards />
+      <Footer />
     </>
   );
 }

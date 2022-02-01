@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -20,6 +21,7 @@ function Drinks() {
       />
       <DrinkPageButtons />
       <DrinkCards />
+      <Footer />
     </>
   );
 }
