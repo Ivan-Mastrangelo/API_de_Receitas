@@ -2,21 +2,36 @@ import React, { useContext } from 'react';
 import FoodContext from '../context/FoodContext';
 
 export default function FoodCards() {
-  const { food } = useContext(FoodContext);
+  const { food, mealByCategory: { actionBtn, apiKey } } = useContext(FoodContext);
   const doze = 12;
 
   return (
     <div>
       {
-        food.meals && food.meals
-          .filter((_, index) => index < doze)
-          .map(({ id, strMealThumb, strMeal }, index) => (
-            <div key={ id } data-testid={ `${index}-recipe-card` }>
+        actionBtn && apiKey.filter((_, index) => index < doze)
+          .map(({ strMeal, strMealThumb }, index) => (
+            <div key={ index } data-testid={ `${index}-recipe-card` }>
               <span data-testid={ `${index}-card-name` }>{strMeal}</span>
               <img
-                src={ `${strMealThumb}/preview` }
+                data-testid={ `${index}-card-img` }
+                src={ strMealThumb }
+                alt={ strMeal }
+                style={ { width: '100px' } }
+              />
+            </div>
+          ))
+      }
+      {
+        food.meals && !actionBtn && food.meals
+          .filter((_, index) => index < doze)
+          .map(({ strMealThumb, strMeal }, index) => (
+            <div key={ index } data-testid={ `${index}-recipe-card` }>
+              <span data-testid={ `${index}-card-name` }>{strMeal}</span>
+              <img
+                src={ `${strMealThumb}` }
                 alt={ strMeal }
                 data-testid={ `${index}-card-img` }
+                style={ { width: '100px' } }
               />
             </div>
           ))
