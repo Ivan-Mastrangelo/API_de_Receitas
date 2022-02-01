@@ -21,9 +21,9 @@ export async function getMealByLetter(lett) {
 }
 
 // retorna todas as categorias de bebidas
-export async function getCategories() {
+export async function getDrinkCategories() {
   try {
-    const response = await fetch('www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
     const json = await response.json();
     return json;
   } catch (error) {
