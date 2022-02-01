@@ -1,10 +1,19 @@
 import React, { useContext } from 'react';
 import FoodContext from '../context/FoodContext';
+import { getMealByCategory } from '../services/foodAPI';
 
 export default function FoodPageButtons() {
-  const { foodCategory } = useContext(FoodContext);
+  const { foodCategory, setMealByCategory } = useContext(FoodContext);
   const cinco = 5;
-  console.log(foodCategory);
+
+  const fetchMealByCategory = async (param) => {
+    const response = await getMealByCategory(param);
+    setMealByCategory((prevState) => ({
+      ...prevState, apiKey: response.meals, actionBtn: !prevState.actionBtn,
+    }));
+    console.log(response);
+  };
+
   return (
     <div>
       {
@@ -15,6 +24,7 @@ export default function FoodPageButtons() {
               type="button"
               key={ strCategory }
               data-testid={ `${strCategory}-category-filter` }
+              onClick={ () => fetchMealByCategory(strCategory) }
             >
               { strCategory }
             </button>

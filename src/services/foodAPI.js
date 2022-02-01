@@ -53,6 +53,17 @@ export async function getAllMeal() {
   }
 }
 
+// Retorna prato da categoria selecionada
+export async function getMealByCategory(param) {
+  try {
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${param}`);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 // retorna foto do prato
 // export async function getPics(ingrediente) {
 //   try {
