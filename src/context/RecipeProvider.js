@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import FoodContext from './FoodContext';
 import DrinkContext from './DrinkContext';
 import LoginContext from './LoginContext';
+import { getAllMeal } from '../services/foodAPI';
+import { getAllDrinks } from '../services/drinkAPI';
 
 function RecipeProvider({ children }) {
   const [email, setEmail] = useState('');
@@ -11,6 +13,23 @@ function RecipeProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   const [food, setFood] = useState([]);
   const [drink, setDrink] = useState([]);
+
+  useEffect(() => {
+    const fetchAPI = async () => {
+      const response = await getAllMeal();
+      setFood(response);
+    };
+    fetchAPI();
+  }, []);
+
+  useEffect(() => {
+    const fetchAPI = async () => {
+      const response = await getAllDrinks();
+      setDrink(response);
+      console.log(response);
+    };
+    fetchAPI();
+  }, []);
 
   const loginContext = {
     email,
