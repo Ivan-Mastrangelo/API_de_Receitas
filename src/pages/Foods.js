@@ -1,5 +1,4 @@
 import React from 'react';
-import DrinkCards from '../components/DrinkCards';
 import FoodCards from '../components/FoodCards';
 import Header from '../components/Header';
 import profileIcon from '../images/profileIcon.svg';
@@ -19,7 +18,6 @@ function Foods() {
         iconId2="search-top-btn"
       />
       <FoodCards />
-      <DrinkCards />
     </>
   );
 }
