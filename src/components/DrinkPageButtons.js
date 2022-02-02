@@ -20,8 +20,19 @@ export default function DrinkPageButtons() {
     }
   };
 
+  const returnAllCategories = () => {
+    setAuxDrink({ recipe: drink, target: '' });
+  };
+
   return (
     <div>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ returnAllCategories }
+      >
+        All
+      </button>
       {
         drinkCategory.drinks && drinkCategory.drinks
           .filter((_, index) => index < cinco)
