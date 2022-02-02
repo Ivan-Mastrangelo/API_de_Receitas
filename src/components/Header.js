@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Search from './Search';
 
 function Header(
   { icon1, nameIcon1, pageName, icon2, nameIcon2, iconId1, nameId, iconId2 },
@@ -47,7 +48,7 @@ function Header(
       </h1>
       <span>
         {renderButton()}
-        { search && <input type="text" data-testid="search-input" />}
+        { search && <Search pageName={ pageName } />}
       </span>
     </header>
   );
