@@ -3,16 +3,21 @@ import DrinkContext from '../context/DrinkContext';
 import { getDrinkByCategory } from '../services/drinkAPI';
 
 export default function DrinkPageButtons() {
-  const { drinkCategory, setDrinkByCategory } = useContext(DrinkContext);
+  const { auxDrink, setAuxDrink, drink, drinkCategory } = useContext(DrinkContext);
   const cinco = 5;
-  console.log(drinkCategory);
 
   const fetchDrinkByCategory = async (param) => {
-    const response = await getDrinkByCategory(param);
-    setDrinkByCategory((prevState) => ({
-      ...prevState, apKey: response.drinks, actionBtn: !prevState.actionBtn,
-    }));
-    console.log(response);
+    const { target } = auxDrink;
+    if (target !== param) {
+      const response = await getDrinkByCategory(param);
+      setAuxDrink({ recipe: response, target: param });
+    }
+    // setDrinkByCategory((prevState) => ({
+    //   ...prevState, apKey: response.drinks, actionBtn: !prevState.actionBtn,
+    // }));
+    if (target === param) {
+      setAuxDrink({ recipe: drink, target: '' });
+    }
   };
 
   return (

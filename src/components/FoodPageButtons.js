@@ -3,15 +3,22 @@ import FoodContext from '../context/FoodContext';
 import { getMealByCategory } from '../services/foodAPI';
 
 export default function FoodPageButtons() {
-  const { foodCategory, setMealByCategory } = useContext(FoodContext);
+  const { auxFood, food, setAuxFood, foodCategory } = useContext(FoodContext);
   const cinco = 5;
 
   const fetchMealByCategory = async (param) => {
-    const response = await getMealByCategory(param);
-    setMealByCategory((prevState) => ({
-      ...prevState, apiKey: response.meals, actionBtn: !prevState.actionBtn,
-    }));
-    console.log(response);
+    const { target } = auxFood;
+    if (target !== param) {
+      const response = await getMealByCategory(param);
+      setAuxFood({ recipe: response, target: param });
+      // setMealByCategory((prevState) => ({
+      //   ...prevState, apiKey: response.meals, actionBtn: !prevState.actionBtn,
+      // }));
+    }
+    if (target === param) {
+      setAuxFood({ recipe: food, target: '' });
+    }
+    // console.log(response);
   };
 
   return (

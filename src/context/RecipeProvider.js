@@ -17,11 +17,14 @@ function RecipeProvider({ children }) {
   const [drinkCategory, setDrinkCategory] = useState([]);
   const [mealByCategory, setMealByCategory] = useState({ apiKey: [], actionBtn: false });
   const [drinkByCategory, setDrinkByCategory] = useState({ apKey: [], actionBtn: false });
+  const [auxFood, setAuxFood] = useState({ recipe: [], target: '' });
+  const [auxDrink, setAuxDrink] = useState({ recipe: [], target: '' });
 
   useEffect(() => {
     const fetchAPI = async () => {
       const response = await getAllMeal();
       setFood(response);
+      setAuxFood({ recipe: response, target: '' });
     };
     fetchAPI();
   }, []);
@@ -30,6 +33,7 @@ function RecipeProvider({ children }) {
     const fetchAPI = async () => {
       const response = await getAllDrinks();
       setDrink(response);
+      setAuxDrink({ recipe: response, target: '' });
     };
     fetchAPI();
   }, []);
@@ -69,6 +73,8 @@ function RecipeProvider({ children }) {
     foodCategory,
     mealByCategory,
     setMealByCategory,
+    auxFood,
+    setAuxFood,
   };
 
   const drinkContext = {
@@ -79,6 +85,8 @@ function RecipeProvider({ children }) {
     drinkCategory,
     drinkByCategory,
     setDrinkByCategory,
+    auxDrink,
+    setAuxDrink,
   };
 
   return (
