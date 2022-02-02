@@ -1,7 +1,7 @@
 // pesquisa por nome inteiro
-export async function getMealByName(e) {
+export async function getDrinkByName(e) {
   try {
-    const response = await fetch(`www.thecocktaildb.com/api/json/v1/1/search.php?s=${e}`);
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${e}`);
     const json = await response.json();
     return json;
   } catch (error) {
@@ -10,9 +10,20 @@ export async function getMealByName(e) {
 }
 
 // pesquisa bebidas usando primeira letra
-export async function getMealByLetter(lett) {
+export async function getDrinkByLetter(lett) {
   try {
-    const response = await fetch(`www.themealdb.com/api/json/v1/1/search.php?f=${lett}`);
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${lett}`);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// pesquisa bebidas pelo ingrediente
+export async function getDrinkByIngredient(ingredient) {
+  try {
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
     const json = await response.json();
     return json;
   } catch (error) {
@@ -34,7 +45,7 @@ export async function getDrinkCategories() {
 // retorna drink aleatorio
 export async function getRandomDrink() {
   try {
-    const response = await fetch('www.thecocktaildb.com/api/json/v1/1/random.php');
+    const response = await fetch('www.thecocktaildb.com/api/json/v1/1/random.php'); // modificar url;(https)
     const json = await response.json();
     return json;
   } catch (error) {

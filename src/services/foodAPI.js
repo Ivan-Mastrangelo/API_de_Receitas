@@ -1,7 +1,7 @@
 // pesquisa por nome inteiro
 export async function getMealByName(value) {
   try {
-    const response = await fetch(`www.themealdb.com/api/json/v1/1/search.php?s=${value}`);
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${value}`);
     const json = await response.json();
     return json;
   } catch (error) {
@@ -12,7 +12,18 @@ export async function getMealByName(value) {
 // pesquisa comidas usando primeira letra
 export async function getMealByLetter(lett) {
   try {
-    const response = await fetch(`www.themealdb.com/api/json/v1/1/search.php?f=${lett}`);
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${lett}`);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// retorna comidas por ingrediente
+export async function getMealByIngredient(ingredient) {
+  try {
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
     const json = await response.json();
     return json;
   } catch (error) {
@@ -34,7 +45,7 @@ export async function getMealCategories() {
 // retorna prato aleatorio
 export async function getRandomMeal() {
   try {
-    const response = await fetch('www.themealdb.com/api/json/v1/1/random.php');
+    const response = await fetch('www.themealdb.com/api/json/v1/1/random.php'); // modificar url;(https)
     const json = await response.json();
     return json;
   } catch (error) {
