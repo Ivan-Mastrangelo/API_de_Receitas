@@ -21,8 +21,19 @@ export default function FoodPageButtons() {
     // console.log(response);
   };
 
+  const returnAllCategories = () => {
+    setAuxFood({ recipe: food, target: '' });
+  };
+
   return (
     <div>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ returnAllCategories }
+      >
+        All
+      </button>
       {
         foodCategory.meals && foodCategory.meals
           .filter((_, index) => index < cinco)
