@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import FoodContext from '../context/FoodContext';
 import DrinkContext from '../context/DrinkContext';
 import {
@@ -16,8 +17,8 @@ export default function Search({ pageName }) {
     value: '',
   });
 
-  const { setAuxFood } = useContext(FoodContext);
-  const { setAuxDrink } = useContext(DrinkContext);
+  const { setAuxFood, food } = useContext(FoodContext);
+  const { setAuxDrink, drink } = useContext(DrinkContext);
 
   const handleChange = ({ target }) => {
     const { name } = target;
@@ -28,16 +29,47 @@ export default function Search({ pageName }) {
     });
   };
 
+  const HISTORY = useHistory();
+
+  const setRedirect = (value, recipes) => {
+    console.log(HISTORY);
+    if (value === 1 && recipes.meals) {
+      const path = `/foods/${recipes.meals[0].idMeal}`;
+      HISTORY.push(path);
+    }
+    if (value === 1 && recipes.drinks) {
+      const path = `/drinks/${recipes.drinks[0].idDrink}`;
+      HISTORY.push(path);
+    }
+  };
+
+  const verifyResponse = (recipes) => {
+    if (recipes.drinks) {
+      setRedirect(recipes.drinks.length, recipes);
+    }
+    if (recipes.meals) {
+      setRedirect(recipes.meals.length, recipes);
+    }
+    if (recipes === undefined || recipes.meals === null || recipes.drinks === null) {
+      setAuxDrink({ recipe: drink, target: '' });
+      setAuxFood({ recipe: food, target: '' });
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    } else {
+      setAuxDrink({ recipe: recipes, target: '' });
+      setAuxFood({ recipe: recipes, target: '' });
+    }
+  };
+
   const getMealApi = async (element) => {
     const { search } = item;
     let recipes = [];
     if (search === 'ingredient') {
       recipes = await getMealByIngredient(element);
-      setAuxFood({ recipe: recipes, target: '' });
+      verifyResponse(recipes);
     }
     if (search === 'name') {
       recipes = await getMealByName(element);
-      setAuxFood({ recipe: recipes, target: '' });
+      verifyResponse(recipes);
     }
     if (search === 'letter') {
       recipes = element.length === 1
@@ -51,11 +83,11 @@ export default function Search({ pageName }) {
     let recipes = [];
     if (search === 'ingredient') {
       recipes = await getDrinkByIngredient(element);
-      setAuxDrink({ recipe: recipes, target: '' });
+      verifyResponse(recipes);
     }
     if (search === 'name') {
       recipes = await getDrinkByName(element);
-      setAuxDrink({ recipe: recipes, target: '' });
+      verifyResponse(recipes);
     }
     if (search === 'letter') {
       recipes = element.length === 1
