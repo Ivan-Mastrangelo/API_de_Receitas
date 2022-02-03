@@ -11,14 +11,10 @@ export default function FoodPageButtons() {
     if (target !== param) {
       const response = await getMealByCategory(param);
       setAuxFood({ recipe: response, target: param });
-      // setMealByCategory((prevState) => ({
-      //   ...prevState, apiKey: response.meals, actionBtn: !prevState.actionBtn,
-      // }));
     }
     if (target === param) {
       setAuxFood({ recipe: food, target: '' });
     }
-    // console.log(response);
   };
 
   const returnAllCategories = () => {

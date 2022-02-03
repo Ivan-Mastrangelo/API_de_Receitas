@@ -12,9 +12,6 @@ export default function DrinkPageButtons() {
       const response = await getDrinkByCategory(param);
       setAuxDrink({ recipe: response, target: param });
     }
-    // setDrinkByCategory((prevState) => ({
-    //   ...prevState, apKey: response.drinks, actionBtn: !prevState.actionBtn,
-    // }));
     if (target === param) {
       setAuxDrink({ recipe: drink, target: '' });
     }
