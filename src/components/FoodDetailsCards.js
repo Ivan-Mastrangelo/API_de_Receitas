@@ -1,11 +1,16 @@
 import React, { useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
 import { getMealById } from '../services/foodAPI';
 import FoodContext from '../context/FoodContext';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import DrinksRecommendation from './DrinksRecommendation';
 
 function FoodDetailsCards({ id }) {
-  const { details, setDetails } = useContext(FoodContext);
+  const { details, setDetails, prog, setProg } = useContext(FoodContext);
+  const history = useHistory();
   useEffect(() => {
     const fetchAPI = async () => {
       const response = await getMealById(id);
@@ -13,7 +18,6 @@ function FoodDetailsCards({ id }) {
     };
     fetchAPI();
   }, [setDetails, id]);
-  console.log(details);
 
   const setArrayIngredients = () => {
     if (details.length > 0) {
@@ -34,6 +38,42 @@ function FoodDetailsCards({ id }) {
 
   const ingredientsAndMeasures = setArrayIngredients();
 
+  // const handleButton = () => {
+  // // if (prog) {
+  //   // return (
+  //   //   <button
+  //   //     type="button"
+  //   //     data-testid="start-recipe-btn"
+  //   //     className="recipe-btn"
+  //   //     onClick={ () => history.push(`/foods/${id}/in-progress`) }
+  //   //   >
+  //   //     Continue Recipe
+  //   //   </button>
+  //   // );
+  //   (
+  //     <button
+  //       type="button"
+  //       data-testid="start-recipe-btn"
+  //       className="recipe-btn"
+  //       onClick={
+  //         () => { history.push(`/foods/${id}/in-progress`); setProg(true); }
+  //       }
+  //     >
+  //       {prog ? 'Continue Recipe' : 'Start Recipe'}
+  //     </button>
+  //   );
+  // };
+
+  const handleClick = () => {
+    history.push(`/foods/${id}/in-progress`);
+    localStorage.setItem('progress', true);
+    setProg(true);
+  };
+
+  const shareLink = () => {
+    // console.log(history);
+  };
+
   return (
     <div>
       {
@@ -50,13 +90,21 @@ function FoodDetailsCards({ id }) {
               src={ strMealThumb }
               alt={ `Receita do(a) ${strMeal}` }
               data-testid="recipe-photo"
-              width="15%"
+              width="100%"
             />
             <h3 data-testid="recipe-title">
               { strMeal }
             </h3>
-            <button type="button" data-testid="share-btn">share</button>
-            <button type="button" data-testid="favorite-btn">Favorite</button>
+            <button
+              type="button"
+              data-testid="share-btn"
+              onClick={ () => shareLink() }
+            >
+              <img src={ shareIcon } alt="share-icon" />
+            </button>
+            <button type="button" data-testid="favorite-btn">
+              <img src={ whiteHeartIcon } alt="favorite-icon" />
+            </button>
             <p data-testid="recipe-category">
               Categoria:
               {' '}
@@ -80,9 +128,19 @@ function FoodDetailsCards({ id }) {
               {'  '}
               {strInstructions}
             </p>
-            <ReactPlayer url={ strYoutube } width="30%" data-testid="video" />
-            <div data-testid="0-recomendation-card" />
-            <button type="button" data-testid="start-recipe-btn">Start</button>
+            <ReactPlayer url={ strYoutube } width="100%" data-testid="video" />
+            <DrinksRecommendation />
+            {/* { handleButton() } */}
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="recipe-btn"
+              onClick={
+                () => handleClick()
+              }
+            >
+              {prog ? 'Continue Recipe' : 'Start Recipe'}
+            </button>
           </div>
         ))
       }
