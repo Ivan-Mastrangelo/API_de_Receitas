@@ -4,15 +4,15 @@ import ReactPlayer from 'react-player';
 import { getMealById } from '../services/foodAPI';
 import FoodContext from '../context/FoodContext';
 
-function FoodDetailsCards({ state }) {
+function FoodDetailsCards({ id }) {
   const { details, setDetails } = useContext(FoodContext);
   useEffect(() => {
     const fetchAPI = async () => {
-      const response = await getMealById(state);
+      const response = await getMealById(id);
       setDetails(response.meals);
     };
     fetchAPI();
-  }, [setDetails, state]);
+  }, [setDetails, id]);
   console.log(details);
 
   const setArrayIngredients = () => {
@@ -81,7 +81,7 @@ function FoodDetailsCards({ state }) {
               {strInstructions}
             </p>
             <ReactPlayer url={ strYoutube } width="30%" data-testid="video" />
-            <div data-testid="start-recipe-btn" />
+            <div data-testid="0-recomendation-card" />
             <button type="button" data-testid="start-recipe-btn">Start</button>
           </div>
         ))
@@ -93,7 +93,7 @@ function FoodDetailsCards({ state }) {
 export default FoodDetailsCards;
 
 FoodDetailsCards.propTypes = {
-  state: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 // ReactPlayer retirado do site https://www.npmjs.com/package/react-player.

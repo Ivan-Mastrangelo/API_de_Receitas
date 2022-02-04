@@ -1,19 +1,17 @@
 import React, { useEffect, useContext } from 'react';
-import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
 import { getDrinkById } from '../services/drinkAPI';
 import DrinkContext from '../context/DrinkContext';
 
-function DrinksDetailsCards({ state }) {
-  console.log(state);
+function DrinksDetailsCards({ id }) {
   const { ddetails, setDdetails } = useContext(DrinkContext);
   useEffect(() => {
     const fetchAPI = async () => {
-      const response = await getDrinkById(state);
+      const response = await getDrinkById(id);
       setDdetails(response.drinks);
     };
     fetchAPI();
-  }, [setDdetails, state]);
+  }, [setDdetails, id]);
   console.log(ddetails);
 
   const setArrayIngredients = () => {
@@ -47,7 +45,7 @@ function DrinksDetailsCards({ state }) {
           strDrink,
           strCategory,
           strInstructions,
-          strYoutube,
+          strAlcoholic,
         }) => (
           <div key={ idDrink }>
             <img
@@ -62,9 +60,7 @@ function DrinksDetailsCards({ state }) {
             <button type="button" data-testid="share-btn">share</button>
             <button type="button" data-testid="favorite-btn">Favorite</button>
             <p data-testid="recipe-category">
-              Categoria:
-              {' '}
-              {strCategory}
+              { `Categoria: ${strCategory}, ${strAlcoholic}` }
             </p>
             <ul>
               Ingredients:
@@ -84,8 +80,7 @@ function DrinksDetailsCards({ state }) {
               {'  '}
               {strInstructions}
             </p>
-            <ReactPlayer url={ strYoutube } width="30%" data-testid="video" />
-            <div data-testid="start-recipe-btn" />
+            <div data-testid="0-recomendation-card" />
             <button type="button" data-testid="start-recipe-btn">Start</button>
           </div>
         ))
@@ -95,9 +90,7 @@ function DrinksDetailsCards({ state }) {
 }
 
 DrinksDetailsCards.propTypes = {
-  state: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default DrinksDetailsCards;
-
-// ReactPlayer retirado do site https://www.npmjs.com/package/react-player.
