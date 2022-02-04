@@ -1,7 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import DrinksDetailsCards from '../components/DrinksDetailsCards';
 
-function DrinksDetails() {
-  return <div> </div>;
+export default function DrinksDetails({ location: { state } }) {
+  console.log(state);
+  return (
+    <div>
+      <DrinksDetailsCards state={ state } />
+    </div>
+  );
 }
 
-export default DrinksDetails;
+DrinksDetails.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.string.isRequired,
+  }).isRequired,
+};

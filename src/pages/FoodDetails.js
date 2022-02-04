@@ -1,7 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import FoodDetailsCards from '../components/FoodDetailsCards';
 
-function FoodDetails() {
-  return <div> </div>;
+export default function FoodDetails({ location: { state } }) {
+  return (
+    <div>
+      <FoodDetailsCards state={ state } />
+    </div>
+  );
 }
 
-export default FoodDetails;
+FoodDetails.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.string.isRequired,
+  }).isRequired,
+};
