@@ -21,6 +21,9 @@ function RecipeProvider({ children }) {
   const [auxDrink, setAuxDrink] = useState({ recipe: [], target: '' });
   const [details, setDetails] = useState([]);
   const [ddetails, setDdetails] = useState([]);
+  const [prog, setProg] = useState(false);
+  const [done, setDone] = useState(false);
+  const [fav, setFav] = useState(false);
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -79,6 +82,12 @@ function RecipeProvider({ children }) {
     setAuxFood,
     details,
     setDetails,
+    prog,
+    setProg,
+    done,
+    setDone,
+    fav,
+    setFav,
   };
 
   const drinkContext = {
@@ -93,6 +102,12 @@ function RecipeProvider({ children }) {
     setAuxDrink,
     ddetails,
     setDdetails,
+    prog,
+    setProg,
+    done,
+    setDone,
+    fav,
+    setFav,
   };
 
   return (
