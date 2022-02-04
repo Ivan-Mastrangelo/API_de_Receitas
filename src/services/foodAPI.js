@@ -75,6 +75,17 @@ export async function getMealByCategory(param) {
   }
 }
 
+// Retorna receita pelo id
+export async function getMealById(id) {
+  try {
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 // retorna foto do prato
 // export async function getPics(ingrediente) {
 //   try {
