@@ -83,6 +83,7 @@ export async function getMealById(id) {
     return json;
   } catch (error) {
     console.error(error);
+    return { meals: [] };
   }
 }
 

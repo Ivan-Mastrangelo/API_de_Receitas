@@ -83,5 +83,6 @@ export async function getDrinkById(id) {
     return json;
   } catch (error) {
     console.error(error);
+    return { drinks: [] };
   }
 }
