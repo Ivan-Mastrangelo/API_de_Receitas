@@ -4,8 +4,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
-import FoodCard from './pages/FoodDetails';
-import DrinkCard from './pages/DrinksDetails';
+import FoodDetails from './pages/FoodDetails';
+import DrinksDetails from './pages/DrinksDetails';
 import FoodProg from './pages/FoodInProgress';
 import DrinksProg from './pages/DrinkInProgres';
 import Explore from './pages/Explore';
@@ -26,8 +26,8 @@ export default function Routes() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/foods" component={ Foods } />
         <Route exact path="/drinks" component={ Drinks } />
-        <Route exact path="/foods/:id" component={ FoodCard } />
-        <Route exact path="/drinks/:id" component={ DrinkCard } />
+        <Route exact path="/foods/:id" component={ FoodDetails } />
+        <Route exact path="/drinks/:id" component={ DrinksDetails } />
         <Route exact path="/foods/:id/in-progress" component={ FoodProg } />
         <Route exact path="/drinks/:id/in-progress" component={ DrinksProg } />
         <Route exact path="/explore" component={ Explore } />
