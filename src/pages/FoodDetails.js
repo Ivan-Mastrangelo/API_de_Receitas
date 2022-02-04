@@ -1,7 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import FoodDetailsCards from '../components/FoodDetailsCards';
 
-function FoodDetails() {
-  return <div> </div>;
+export default function FoodDetails({ match: { params: { id } } }) {
+  console.log();
+  return (
+    <div>
+      <FoodDetailsCards id={ id } />
+    </div>
+  );
 }
 
-export default FoodDetails;
+FoodDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};

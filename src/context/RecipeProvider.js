@@ -19,6 +19,8 @@ function RecipeProvider({ children }) {
   const [drinkByCategory, setDrinkByCategory] = useState({ apKey: [], actionBtn: false });
   const [auxFood, setAuxFood] = useState({ recipe: [], target: '' });
   const [auxDrink, setAuxDrink] = useState({ recipe: [], target: '' });
+  const [details, setDetails] = useState([]);
+  const [ddetails, setDdetails] = useState([]);
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -75,6 +77,8 @@ function RecipeProvider({ children }) {
     setMealByCategory,
     auxFood,
     setAuxFood,
+    details,
+    setDetails,
   };
 
   const drinkContext = {
@@ -87,6 +91,8 @@ function RecipeProvider({ children }) {
     setDrinkByCategory,
     auxDrink,
     setAuxDrink,
+    ddetails,
+    setDdetails,
   };
 
   return (
