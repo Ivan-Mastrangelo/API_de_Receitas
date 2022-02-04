@@ -13,10 +13,7 @@ export default function FoodCards() {
           .filter((_, index) => index < doze)
           .map(({ idMeal, strMealThumb, strMeal }, index) => (
             <Link
-              to={ {
-                pathname: `/foods/${idMeal}`,
-                state: idMeal,
-              } }
+              to={ `/foods/${idMeal}` }
               key={ idMeal }
               data-testid={ `${index}-recipe-card` }
             >

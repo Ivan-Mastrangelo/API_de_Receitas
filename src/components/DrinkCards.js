@@ -14,10 +14,7 @@ export default function DrinkCards() {
           .filter((_, index) => index < doze)
           .map(({ idDrink, strDrinkThumb, strDrink }, index) => (
             <Link
-              to={ {
-                pathname: `/drinks/${idDrink}`,
-                state: idDrink,
-              } }
+              to={ `/drinks/${idDrink}` }
               key={ idDrink }
               data-testid={ `${index}-recipe-card` }
             >
