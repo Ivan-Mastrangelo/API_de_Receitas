@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import FoodDetailsCards from '../components/FoodDetailsCards';
 
 export default function FoodDetails({ match: { params: { id } } }) {
-  console.log();
   return (
     <div>
       <FoodDetailsCards id={ id } />

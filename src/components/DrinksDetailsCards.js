@@ -1,10 +1,13 @@
 import React, { useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getDrinkById } from '../services/drinkAPI';
 import DrinkContext from '../context/DrinkContext';
+import FoodsRecommendation from './FoodsRecommendation';
 
 function DrinksDetailsCards({ id }) {
-  const { ddetails, setDdetails } = useContext(DrinkContext);
+  const { ddetails, setDdetails, prog, setProg, done } = useContext(DrinkContext);
+  const history = useHistory();
   useEffect(() => {
     const fetchAPI = async () => {
       const response = await getDrinkById(id);
@@ -12,7 +15,6 @@ function DrinksDetailsCards({ id }) {
     };
     fetchAPI();
   }, [setDdetails, id]);
-  console.log(ddetails);
 
   const setArrayIngredients = () => {
     if (ddetails.length > 0) {
@@ -34,7 +36,32 @@ function DrinksDetailsCards({ id }) {
 
   const ingredientsAndMeasures = setArrayIngredients();
 
-  console.log(ingredientsAndMeasures);
+  const handleButton = () => {
+    if (prog) {
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="recipe-btn"
+          onClick={ () => history.push(`/drinks/${id}/in-progress`) }
+        >
+          Continue Recipe
+        </button>
+      );
+    }
+    return (
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="recipe-btn"
+        onClick={
+          () => { history.push(`/drinks/${id}/in-progress`); setProg(true); }
+        }
+      >
+        Start Recipe
+      </button>
+    );
+  };
 
   return (
     <div>
@@ -52,7 +79,7 @@ function DrinksDetailsCards({ id }) {
               src={ strDrinkThumb }
               alt={ `Receita do(a) ${strDrink}` }
               data-testid="recipe-photo"
-              width="15%"
+              width="100%"
             />
             <h3 data-testid="recipe-title">
               { strDrink }
@@ -80,8 +107,8 @@ function DrinksDetailsCards({ id }) {
               {'  '}
               {strInstructions}
             </p>
-            <div data-testid="0-recomendation-card" />
-            <button type="button" data-testid="start-recipe-btn">Start</button>
+            <FoodsRecommendation />
+            { !done && handleButton() }
           </div>
         ))
       }
