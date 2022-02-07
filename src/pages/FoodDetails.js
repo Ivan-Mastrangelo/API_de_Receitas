@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FoodDetailsCards from '../components/FoodDetailsCards';
+import FoodFunctionCard from '../components/FoodFunctionCard';
 
 export default function FoodDetails({ match: { params: { id } } }) {
   return (
     <div>
-      <FoodDetailsCards id={ id } />
+      <FoodFunctionCard id={ id } />
     </div>
   );
 }

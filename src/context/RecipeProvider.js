@@ -21,7 +21,7 @@ function RecipeProvider({ children }) {
   const [auxDrink, setAuxDrink] = useState({ recipe: [], target: '' });
   const [details, setDetails] = useState([]);
   const [ddetails, setDdetails] = useState([]);
-  const [prog, setProg] = useState(false);
+  const [prog, setProg] = useState(true);
   const [done, setDone] = useState(false);
   const [fav, setFav] = useState(false);
 
