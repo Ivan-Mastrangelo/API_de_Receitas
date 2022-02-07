@@ -1,13 +1,21 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import DrinkContext from '../context/DrinkContext';
+import { getDrinkByIngredient } from '../services/drinkAPI';
 
 function ExploreDrinksIngredients() {
-  const { drinkIngredients } = useContext(DrinkContext);
+  const { drinkIngredients, setAuxDrink } = useContext(DrinkContext);
   const doze = 12;
-  console.log(drinkIngredients);
+  const history = useHistory();
+
+  const passMyIngredient = async (strIngredient1) => {
+    const response = await getDrinkByIngredient(strIngredient1);
+    setAuxDrink({ recipe: response, target: '' });
+    history.push('/drinks');
+  };
+
   return (
     <>
       <Header pageName="Explore Ingredients" />
@@ -16,10 +24,11 @@ function ExploreDrinksIngredients() {
           drinkIngredients && drinkIngredients
             .filter((_, index) => index < doze)
             .map(({ strIngredient1 }, index) => (
-              <Link
+              <button
+                type="button"
                 key={ index }
-                to="/drinks"
                 data-testid={ `${index}-ingredient-card` }
+                onClick={ () => passMyIngredient(strIngredient1) }
               >
                 <div>
                   <img
@@ -29,7 +38,7 @@ function ExploreDrinksIngredients() {
                   />
                   <span data-testid={ `${index}-card-name` }>{ strIngredient1 }</span>
                 </div>
-              </Link>
+              </button>
             ))
         }
       </div>
