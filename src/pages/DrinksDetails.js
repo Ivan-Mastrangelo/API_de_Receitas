@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DrinksDetailsCards from '../components/DrinksDetailsCards';
+import DrinksFunctionCards from '../components/DrinksFunctionCards';
 
 export default function DrinksDetails({ match: { params: { id } } }) {
   return (
     <div>
-      <DrinksDetailsCards id={ id } />
+      <DrinksFunctionCards id={ id } />
     </div>
   );
 }

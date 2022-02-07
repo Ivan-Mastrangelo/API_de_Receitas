@@ -5,7 +5,6 @@ import DrinkContext from '../context/DrinkContext';
 export default function DrinkCards() {
   const { auxDrink: { recipe: { drinks } } } = useContext(DrinkContext);
   const doze = 12;
-  console.log(drinks);
 
   return (
     <div>
