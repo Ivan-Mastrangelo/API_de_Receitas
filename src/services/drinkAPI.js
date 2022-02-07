@@ -86,3 +86,15 @@ export async function getDrinkById(id) {
     return { drinks: [] };
   }
 }
+
+// retorna lista de ingredientes
+export async function getDrinkIng() {
+  try {
+    const response = await fetch('www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+    return { drinks: [] };
+  }
+}
