@@ -84,16 +84,16 @@
   justify-content: center;
 }
 
-.galery div{
+.galery div {
   max-width: 80%;
 }
 
 .selected {
-  width: 100%;
-  visibility: visible;
   display: flex;
   flex-direction: column;
   position: relative;
+  visibility: visible;
+  width: 100%;
 }
 
 .notSelected {
