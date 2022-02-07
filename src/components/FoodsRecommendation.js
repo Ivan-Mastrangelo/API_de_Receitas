@@ -1,43 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import { getAllMeal } from '../services/foodAPI';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-export default function FoodsRecommendation() {
-  const [foodsData, setFoodsData] = useState([]);
+export default function FoodsRecommendation(
+  { foodRecommend: { recommendation, changePosition, position } },
+) {
   useEffect(() => {
-    async function fetchData() {
-      const response = await getAllMeal();
-      setFoodsData(response.meals);
-    }
-    fetchData();
-  }, []);
-
-  const setRecomendationArray = () => {
-    const recommendationArray = [];
-    const five = 5;
-    if (foodsData.length > 0) {
-      for (let i = 0; i <= five; i += 1) {
-        recommendationArray.push(foodsData[i]);
-      }
-    }
-    return recommendationArray;
-  };
-
-  const recommendation = setRecomendationArray();
+    const TIME = 5000;
+    const interval = setInterval(
+      changePosition, TIME,
+    );
+    return () => {
+      clearInterval(interval);
+    };
+  }, [changePosition]);
 
   return (
     <>
       <p>Recommendations</p>
-      <section>
-        { recommendation.map(
+      <section className="galery">
+        { recommendation && recommendation.map(
           ({ strMeal, strMealThumb, strCategory }, index) => (
             <div key={ index } data-testid={ `${index}-recomendation-card` }>
-              <img
-                src={ strMealThumb }
-                alt={ strMeal }
-                width="50%"
-              />
-              <p>{strCategory}</p>
-              <p data-testid={ `${index}-recomendation-title` }>{strMeal}</p>
+              <div
+                className={ index === position.positionOne
+                || index === position.positionTwo ? 'selected' : 'notSelected' }
+              >
+                <img
+                  src={ strMealThumb }
+                  alt={ strMeal }
+                  width="100%"
+                />
+                <p>{strCategory}</p>
+                <p data-testid={ `${index}-recomendation-title` }>{strMeal}</p>
+              </div>
             </div>
           ),
         )}
@@ -45,3 +40,11 @@ export default function FoodsRecommendation() {
     </>
   );
 }
+
+FoodsRecommendation.propTypes = {
+  foodRecommend: PropTypes.shape({
+    recommendation: PropTypes.arrayOf(PropTypes.object),
+    changePosition: PropTypes.func,
+    position: PropTypes.objectOf(PropTypes.number),
+  }).isRequired,
+};

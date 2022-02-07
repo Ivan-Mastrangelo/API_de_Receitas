@@ -78,3 +78,25 @@
   bottom: 0;
   position: fixed;
 }
+
+.galery {
+  display: flex;
+  justify-content: center;
+}
+
+.galery div{
+  max-width: 80%;
+}
+
+.selected {
+  width: 100%;
+  visibility: visible;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.notSelected {
+  visibility: hidden;
+  width: 0;
+}

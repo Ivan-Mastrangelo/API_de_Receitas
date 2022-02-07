@@ -1,46 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import { getAllDrinks } from '../services/drinkAPI';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-export default function DrinksRecomendation() {
-  const [drinksData, setDrinksData] = useState([]);
+export default function DrinksRecomendation(
+  { drinksRecommend: { recomendation, changePosition, position } },
+) {
   useEffect(() => {
-    async function fetchData() {
-      const { drinks } = await getAllDrinks();
-      setDrinksData([...drinks]);
-    }
-    fetchData();
-  }, []);
-
-  const setRecomendationArray = () => {
-    const recommendationArray = [];
-    const five = 5;
-    if (drinksData.length > 0) {
-      for (let i = 0; i <= five; i += 1) {
-        recommendationArray.push(drinksData[i]);
-      }
-    }
-    console.log(drinksData);
-    console.log(recommendationArray);
-    return recommendationArray;
-  };
-
-  const recomendation = setRecomendationArray();
+    const TIME = 5000;
+    const interval = setInterval(
+      changePosition, TIME,
+    );
+    return () => {
+      clearInterval(interval);
+    };
+  }, [changePosition]);
 
   return (
     <>
-      <p>Recomendations</p>
-      <section>
+      <h3>Recomendations</h3>
+      <section className="galery">
         { recomendation.map(
           ({ strGlass, strDrinkThumb, strAlcoholic, strDrink }, index) => (
-            <div key={ index } data-testid={ `${index}-recomendation-card` }>
-              <img
-                src={ strDrinkThumb }
-                alt={ strDrink }
-                width="50%"
-              />
-              <p>{strAlcoholic}</p>
-              <p data-testid={ `${index}-recomendation-title` }>{strDrink}</p>
-              <p>{strGlass}</p>
+            <div
+              key={ index }
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <div
+                className={ index === position.positionOne
+                || index === position.positionTwo ? 'selected' : 'notSelected' }
+              >
+                <img
+                  src={ strDrinkThumb }
+                  alt={ strDrink }
+                  width="100%"
+                />
+                <p>{strAlcoholic}</p>
+                <p data-testid={ `${index}-recomendation-title` }>{strDrink}</p>
+                <p>{strGlass}</p>
+              </div>
             </div>
           ),
         )}
@@ -48,3 +44,11 @@ export default function DrinksRecomendation() {
     </>
   );
 }
+
+DrinksRecomendation.propTypes = {
+  drinksRecommend: PropTypes.shape({
+    recomendation: PropTypes.arrayOf(PropTypes.object),
+    changePosition: PropTypes.func,
+    position: PropTypes.objectOf(PropTypes.number),
+  }).isRequired,
+};
