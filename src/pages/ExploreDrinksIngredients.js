@@ -7,7 +7,7 @@ import DrinkContext from '../context/DrinkContext';
 function ExploreDrinksIngredients() {
   const { drinkIngredients } = useContext(DrinkContext);
   const doze = 12;
-
+  console.log(drinkIngredients);
   return (
     <>
       <Header pageName="Explore Ingredients" />
@@ -23,7 +23,7 @@ function ExploreDrinksIngredients() {
               >
                 <div>
                   <img
-                    src={ `https://www.themealdb.com/images/ingredients/${strIngredient1}-Small.png` }
+                    src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
                     alt={ strIngredient1 }
                     data-testid={ `${index}-card-img` }
                   />

@@ -45,7 +45,7 @@ export async function getMealCategories() {
 // retorna prato aleatorio
 export async function getRandomMeal() {
   try {
-    const response = await fetch('www.themealdb.com/api/json/v1/1/random.php'); // modificar url;(https)
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php'); // modificar url;(https)
     const json = await response.json();
     return json;
   } catch (error) {
