@@ -45,7 +45,7 @@ export async function getDrinkCategories() {
 // retorna drink aleatorio
 export async function getRandomDrink() {
   try {
-    const response = await fetch('www.thecocktaildb.com/api/json/v1/1/random.php'); // modificar url;(https)
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php'); // modificar url;(https)
     const json = await response.json();
     return json;
   } catch (error) {
@@ -79,6 +79,18 @@ export async function getDrinkByCategory(param) {
 export async function getDrinkById(id) {
   try {
     const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+    return { drinks: [] };
+  }
+}
+
+// retorna lista de ingredientes
+export async function getDrinkIng() {
+  try {
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
     const json = await response.json();
     return json;
   } catch (error) {

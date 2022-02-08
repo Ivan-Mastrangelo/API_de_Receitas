@@ -32,3 +32,11 @@ export default function FoodCards() {
     </div>
   );
 }
+
+// FoodCards.propTypes = {
+//   history: PropTypes.shape({
+//     location: PropTypes.shape({
+//       state: PropTypes.string.isRequired,
+//     }).isRequired,
+//   }).isRequired,
+// };
