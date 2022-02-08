@@ -100,3 +100,8 @@
   visibility: hidden;
   width: 0;
 }
+
+.checked {
+  text-decoration-line: 'line-through';
+  text-decoration-style: 'solid';
+}
