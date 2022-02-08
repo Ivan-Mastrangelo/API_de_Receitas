@@ -7,7 +7,7 @@ import Drinks from './pages/Drinks';
 import FoodDetails from './pages/FoodDetails';
 import DrinksDetails from './pages/DrinksDetails';
 import FoodProg from './pages/FoodInProgress';
-import DrinksProg from './pages/DrinkInProgres';
+import DrinksProg from './pages/DrinkInProgress';
 import Explore from './pages/Explore';
 import ExploreFood from './pages/ExploreFood';
 import ExploreDrink from './pages/ExploreDrinks';

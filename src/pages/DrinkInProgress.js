@@ -1,21 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FoodRecipeProgress from '../components/FoodRecipeProgress';
+import DrinkRecipeProgress from '../components/DrinkRecipeProgress';
 
-function FoodInProgress({ match: { params: { id } } }) {
+export default function DrinkInProgress({ match: { params: { id } } }) {
   return (
     <div>
-      <FoodRecipeProgress id={ id } />
+      <DrinkRecipeProgress id={ id } />
     </div>
   );
 }
 
-FoodInProgress.propTypes = {
+DrinkInProgress.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 };
-
-export default FoodInProgress;
