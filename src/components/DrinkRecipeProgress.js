@@ -42,8 +42,8 @@ export default function DrinkRecipeProgress({ id }) {
   const ingredients = setArrayIngredients();
 
   const handleCheck = (e) => {
-    console.log(e.target);
-    e.target.classList.toggle('checked');
+    const teste = document.getElementById(e.target.value).nextSibling;
+    teste.classList.toggle('checked');
   };
   return (
     <div>
@@ -99,13 +99,12 @@ export default function DrinkRecipeProgress({ id }) {
                       data-testid={ `${array.length}-ingredient-step` }
                     >
                       <input
-                        // className="checked"
                         type="checkbox"
                         id={ ingredient }
-                        value={ ingredients }
+                        value={ ingredient }
                         onChange={ (e) => handleCheck(e) }
                       />
-                      {ingredient}
+                      <span>{ingredient}</span>
                     </label>
                   </section>
                 ),

@@ -8,7 +8,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function FoodInProgress({ id }) {
   const { recipeprogress, setRecipeProgress } = useContext(FoodContext);
-  // const [check, setCheck] = useState(false);
+  // const [checkStyle, setCheckStyle] = useState({});
   console.log(recipeprogress);
 
   useEffect(() => {
@@ -41,8 +41,8 @@ function FoodInProgress({ id }) {
   const ingredients = setArrayIngredients();
 
   const handleCheck = (e) => {
-    console.log(e.target);
-    e.target.classList.toggle('checked');
+    const teste = document.getElementById(e.target.value).nextSibling;
+    teste.classList.toggle('checked');
   };
   return (
     <div>
@@ -97,13 +97,12 @@ function FoodInProgress({ id }) {
                       data-testid={ `${array.length}-ingredient-step` }
                     >
                       <input
-                        // className="checked"
                         type="checkbox"
                         id={ ingredient }
-                        value={ ingredients }
+                        value={ ingredient }
                         onChange={ (e) => handleCheck(e) }
                       />
-                      {ingredient}
+                      <span>{ingredient}</span>
                     </label>
                   </section>
                 ),

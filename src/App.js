@@ -1,7 +1,7 @@
 import React from 'react';
 import RecipeProvider from './context/RecipeProvider';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import Rotas from './Rotas';
 
 function App() {
