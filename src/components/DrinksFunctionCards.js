@@ -60,8 +60,6 @@ function DrinksFunctionCards({ id }) {
     setFavorite(favoriteRecipes);
   };
 
-  console.log(ddetails);
-
   const favoriteRecipe = () => {
     const saveRecipes = {
       id,

@@ -23,8 +23,6 @@ function DrinksDetailsCards(
     verifyFavorites();
   }, [favorite, id]);
 
-  console.log(favorite);
-
   const handleButton = () => {
     if (prog) {
       return (

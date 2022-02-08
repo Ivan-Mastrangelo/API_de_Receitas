@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
@@ -8,10 +8,21 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FoodDetailsCards(
-  { foodDetails: { click, share, ingredients, msg, details, id, favorite } },
+  { foodDetails: { click, share, ingredients, msg, details, id } },
 ) {
-  const { prog, setProg } = useContext(FoodContext);
+  const { prog, setProg, favorite } = useContext(FoodContext);
+  const [recipe, setRecipe] = useState(false);
   const history = useHistory();
+
+  useEffect(() => {
+    const verifyFavorites = () => {
+      if (favorite) {
+        setRecipe(favorite.length > 0 && favorite
+          .some((isFavorite) => isFavorite.id === id));
+      }
+    };
+    verifyFavorites();
+  }, [favorite, id]);
 
   const handleButton = () => {
     if (prog) {
@@ -75,7 +86,7 @@ function FoodDetailsCards(
             >
               <img
                 data-testid="favorite-btn"
-                src={ favorite ? blackHeartIcon : whiteHeartIcon }
+                src={ recipe ? blackHeartIcon : whiteHeartIcon }
                 alt="share-icon"
               />
             </button>
