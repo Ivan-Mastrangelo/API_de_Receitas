@@ -24,6 +24,7 @@ function RecipeProvider({ children }) {
   const [prog, setProg] = useState(true);
   const [done, setDone] = useState(false);
   const [fav, setFav] = useState(false);
+  const [recipeprogress, setRecipeProgress] = useState([]);
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -88,6 +89,8 @@ function RecipeProvider({ children }) {
     setDone,
     fav,
     setFav,
+    recipeprogress,
+    setRecipeProgress,
   };
 
   const drinkContext = {
@@ -108,6 +111,8 @@ function RecipeProvider({ children }) {
     setDone,
     fav,
     setFav,
+    recipeprogress,
+    setRecipeProgress,
   };
 
   return (
