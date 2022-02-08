@@ -59,8 +59,6 @@ function FoodFunctionCard({ id }) {
     setFavorite(favoriteRecipes);
   };
 
-  console.log(details);
-
   const favoriteRecipe = () => {
     const saveRecipes = {
       id,
