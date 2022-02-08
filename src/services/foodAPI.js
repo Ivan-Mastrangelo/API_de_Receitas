@@ -45,7 +45,7 @@ export async function getMealCategories() {
 // retorna prato aleatorio
 export async function getRandomMeal() {
   try {
-    const response = await fetch('www.themealdb.com/api/json/v1/1/random.php'); // modificar url;(https)
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php'); // modificar url;(https)
     const json = await response.json();
     return json;
   } catch (error) {
@@ -87,12 +87,14 @@ export async function getMealById(id) {
   }
 }
 
-// retorna foto do prato
-// export async function getPics(ingrediente) {
-//   try {
-//     const photo = await fetch(`https://www.themealdb.com/images/ingredients/${ingrediente}.png`);
-//     return photo;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
+// Retora lista de ingredientes
+export async function getMealIngredients() {
+  try {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error);
+    return { meals: [] };
+  }
+}

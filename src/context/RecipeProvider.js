@@ -3,29 +3,36 @@ import PropTypes from 'prop-types';
 import FoodContext from './FoodContext';
 import DrinkContext from './DrinkContext';
 import LoginContext from './LoginContext';
-import { getAllMeal, getMealCategories } from '../services/foodAPI';
-import { getAllDrinks, getDrinkCategories } from '../services/drinkAPI';
+import { getAllMeal, getMealIngredients, getMealCategories } from '../services/foodAPI';
+import { getAllDrinks, getDrinkCategories, getDrinkIng } from '../services/drinkAPI';
 
 function RecipeProvider({ children }) {
+  // Login
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginDisabled, setLoginDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  // Recipe Details
   const [food, setFood] = useState([]);
   const [drink, setDrink] = useState([]);
-  const [foodCategory, setFoodCategory] = useState([]);
-  const [drinkCategory, setDrinkCategory] = useState([]);
-  const [mealByCategory, setMealByCategory] = useState({ apiKey: [], actionBtn: false });
-  const [drinkByCategory, setDrinkByCategory] = useState({ apKey: [], actionBtn: false });
   const [auxFood, setAuxFood] = useState({ recipe: [], target: '' });
   const [auxDrink, setAuxDrink] = useState({ recipe: [], target: '' });
   const [details, setDetails] = useState([]);
   const [ddetails, setDdetails] = useState([]);
+  // Recipe Categories
+  const [foodCategory, setFoodCategory] = useState([]);
+  const [drinkCategory, setDrinkCategory] = useState([]);
+  const [mealByCategory, setMealByCategory] = useState({ apiKey: [], actionBtn: false });
+  const [drinkByCategory, setDrinkByCategory] = useState({ apKey: [], actionBtn: false });
+  // Ingredients
+  const [mealIngredients, setMealIngredients] = useState([]);
+  const [drinkIngredients, setDrinkIngredients] = useState([]);
+  // Booleans
   const [prog, setProg] = useState(true);
   const [done, setDone] = useState(false);
   const [fav, setFav] = useState(false);
   const [recipeprogress, setRecipeProgress] = useState([]);
-
+  // API
   useEffect(() => {
     const fetchAPI = async () => {
       const response = await getAllMeal();
@@ -60,6 +67,23 @@ function RecipeProvider({ children }) {
     fetchAPIDrinkCategory();
   }, []);
 
+  useEffect(() => {
+    const fetchMealIngredients = async () => {
+      const response = await getMealIngredients();
+      setMealIngredients(response.meals);
+    };
+    fetchMealIngredients();
+  }, []);
+
+  useEffect(() => {
+    const fetchDrinkIngredients = async () => {
+      const response = await getDrinkIng();
+      setDrinkIngredients(response.drinks);
+    };
+    fetchDrinkIngredients();
+  }, []);
+
+  // Contexts
   const loginContext = {
     email,
     setEmail,
@@ -91,6 +115,7 @@ function RecipeProvider({ children }) {
     setFav,
     recipeprogress,
     setRecipeProgress,
+    mealIngredients,
   };
 
   const drinkContext = {
@@ -113,6 +138,7 @@ function RecipeProvider({ children }) {
     setFav,
     recipeprogress,
     setRecipeProgress,
+    drinkIngredients,
   };
 
   return (
