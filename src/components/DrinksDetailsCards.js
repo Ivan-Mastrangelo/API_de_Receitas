@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
@@ -7,10 +7,23 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import DrinkContext from '../context/DrinkContext';
 
 function DrinksDetailsCards(
-  { drinksDetails: { msg, favorite, click, share, ddetails, ingredients, id } },
+  { drinksDetails: { msg, click, share, ddetails, ingredients, id } },
 ) {
-  const { prog, setProg, done } = useContext(DrinkContext);
+  const { prog, setProg, done, favorite } = useContext(DrinkContext);
+  const [recipe, setRecipe] = useState(false);
   const history = useHistory();
+
+  useEffect(() => {
+    const verifyFavorites = () => {
+      if (favorite) {
+        setRecipe(favorite.length > 0 && favorite
+          .some((isFavorite) => isFavorite.id === id));
+      }
+    };
+    verifyFavorites();
+  }, [favorite, id]);
+
+  console.log(favorite);
 
   const handleButton = () => {
     if (prog) {
@@ -74,7 +87,7 @@ function DrinksDetailsCards(
             >
               <img
                 data-testid="favorite-btn"
-                src={ favorite ? blackHeartIcon : whiteHeartIcon }
+                src={ recipe ? blackHeartIcon : whiteHeartIcon }
                 alt="share-icon"
               />
             </button>
@@ -113,7 +126,6 @@ DrinksDetailsCards.propTypes = {
     share: PropTypes.func,
     ingredients: PropTypes.arrayOf(PropTypes.string),
     msg: PropTypes.bool,
-    favorite: PropTypes.bool,
     ddetails: PropTypes.arrayOf(PropTypes.object),
     id: PropTypes.string,
   }).isRequired,

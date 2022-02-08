@@ -5,6 +5,7 @@ import DrinkContext from './DrinkContext';
 import LoginContext from './LoginContext';
 import { getAllMeal, getMealIngredients, getMealCategories } from '../services/foodAPI';
 import { getAllDrinks, getDrinkCategories, getDrinkIng } from '../services/drinkAPI';
+import getLocalStorage from '../services/getLocalStorage';
 
 function RecipeProvider({ children }) {
   // Login
@@ -30,7 +31,7 @@ function RecipeProvider({ children }) {
   // Booleans
   const [prog, setProg] = useState(true);
   const [done, setDone] = useState(false);
-  const [fav, setFav] = useState(false);
+  const [favorite, setFavorite] = useState({});
   // API
   useEffect(() => {
     const fetchAPI = async () => {
@@ -82,6 +83,12 @@ function RecipeProvider({ children }) {
     fetchDrinkIngredients();
   }, []);
 
+  // Local Storage
+  useEffect(() => {
+    const favoriteRecipes = getLocalStorage();
+    setFavorite(favoriteRecipes);
+  }, []);
+
   // Contexts
   const loginContext = {
     email,
@@ -110,8 +117,8 @@ function RecipeProvider({ children }) {
     setProg,
     done,
     setDone,
-    fav,
-    setFav,
+    favorite,
+    setFavorite,
     mealIngredients,
   };
 
@@ -131,9 +138,9 @@ function RecipeProvider({ children }) {
     setProg,
     done,
     setDone,
-    fav,
-    setFav,
     drinkIngredients,
+    favorite,
+    setFavorite,
   };
 
   return (
