@@ -31,6 +31,7 @@ function RecipeProvider({ children }) {
   const [prog, setProg] = useState(true);
   const [done, setDone] = useState(false);
   const [fav, setFav] = useState(false);
+  const [recipeprogress, setRecipeProgress] = useState([]);
   // API
   useEffect(() => {
     const fetchAPI = async () => {
@@ -112,6 +113,8 @@ function RecipeProvider({ children }) {
     setDone,
     fav,
     setFav,
+    recipeprogress,
+    setRecipeProgress,
     mealIngredients,
   };
 
@@ -133,6 +136,8 @@ function RecipeProvider({ children }) {
     setDone,
     fav,
     setFav,
+    recipeprogress,
+    setRecipeProgress,
     drinkIngredients,
   };
 
