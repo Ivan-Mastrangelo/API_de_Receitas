@@ -9,12 +9,12 @@ import FoodDetailsCards from './FoodDetailsCards';
 import DrinksRecommendation from './DrinksRecommendation';
 
 function FoodFunctionCard({ id }) {
-  const { details, setDetails } = useContext(FoodContext);
+  const { details, setDetails, favorite, setFavorite } = useContext(FoodContext);
   const { drink: { drinks } } = useContext(DrinkContext);
   const history = useHistory();
   const [msg, setMsg] = useState(false);
-  const [favorite, setFavorite] = useState(false);
   const [position, setPosition] = useState({ positionOne: 0, positionTwo: 1 });
+
   useEffect(() => {
     const fetchAPI = async () => {
       const response = await getMealById(id);
@@ -51,8 +51,41 @@ function FoodFunctionCard({ id }) {
     setTimeout(() => setMsg(false), TIME);
   };
 
+  const removeFavorite = () => {
+    let favoriteRecipes = [...favorite];
+    favoriteRecipes = favorite.filter((recipe) => recipe.id !== id);
+    const setRecipes = JSON.stringify(favoriteRecipes);
+    localStorage.setItem('favoriteRecipes', setRecipes);
+    setFavorite(favoriteRecipes);
+  };
+
+  console.log(details);
+
   const favoriteRecipe = () => {
-    setFavorite(!favorite);
+    const saveRecipes = {
+      id,
+      type: 'food',
+      nationality: details[0].strArea,
+      category: details[0].strCategory,
+      alcoholicOrNot: '',
+      name: details[0].strMeal,
+      image: details[0].strMealThumb,
+    };
+    let favoriteRecipes = [];
+    if (favorite && favorite.every((recipe) => recipe.id !== id)) {
+      favoriteRecipes = [...favorite];
+      favoriteRecipes.push(saveRecipes);
+      const setRecipes = JSON.stringify(favoriteRecipes);
+      localStorage.setItem('favoriteRecipes', setRecipes);
+      setFavorite(favoriteRecipes);
+    } else if (!favorite) {
+      favoriteRecipes = [saveRecipes];
+      const setRecipes = JSON.stringify(favoriteRecipes);
+      localStorage.setItem('favoriteRecipes', setRecipes);
+      setFavorite(favoriteRecipes);
+    } else {
+      removeFavorite();
+    }
   };
 
   const setRecomendationArray = () => {
@@ -93,8 +126,7 @@ function FoodFunctionCard({ id }) {
             ingredients: ingredientsAndMeasures,
             msg,
             details,
-            id,
-            favorite }
+            id }
         }
       />
       <DrinksRecommendation
