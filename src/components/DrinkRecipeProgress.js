@@ -17,8 +17,9 @@ function DrinkRecipeProgress({ id }) {
   } = useContext(DrinkContext);
   const [favRecipe, setFavRecipe] = useState(false);
   const [msg, setMsg] = useState(false);
+  const [first, setFirst] = useState([]);
+  const [isDisable, setIsDisable] = useState(true);
   const history = useHistory();
-  console.log(recipeprogress);
 
   useEffect(() => {
     const verifyFavorites = () => {
@@ -58,8 +59,26 @@ function DrinkRecipeProgress({ id }) {
   const ingredients = setArrayIngredients();
 
   const handleCheck = (e) => {
-    const teste = document.getElementById(e.target.value).nextSibling;
-    teste.classList.toggle('checked');
+    e.target.parentNode.classList.toggle('checked');
+    let riskIgredient = [];
+    if (first.length === 0) {
+      riskIgredient.push(e.target.value);
+      setFirst(riskIgredient);
+    } else if (first.length > 0 && first.every((el) => el !== e.target.value)) {
+      riskIgredient = [...first];
+      riskIgredient.push(e.target.value);
+      setFirst(riskIgredient);
+    } else {
+      const unChecked = first.filter((el) => el !== e.target.value);
+      setFirst(unChecked);
+    }
+    if (first.length + 1 !== ingredients.length) {
+      setIsDisable(true);
+      console.log(first.length);
+    } else {
+      setIsDisable(false);
+      console.log(ingredients.length);
+    }
   };
 
   const removeFavorite = () => {
@@ -181,8 +200,13 @@ function DrinkRecipeProgress({ id }) {
           </div>
         ))
       }
-      <button type="button" data-testid="finish-recipe-btn">
-        Complete recipe
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        disabled={ isDisable }
+        onClick={ () => history.push('/done-recipes') }
+      >
+        Finish Recipe
       </button>
     </div>
   );
