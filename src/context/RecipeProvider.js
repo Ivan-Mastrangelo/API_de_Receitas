@@ -33,6 +33,7 @@ function RecipeProvider({ children }) {
   const [done, setDone] = useState(false);
   const [favorite, setFavorite] = useState({});
   const [recipeprogress, setRecipeProgress] = useState([]);
+  const [auxFavorite, setAuxFavorite] = useState([]);
 
   // API
   useEffect(() => {
@@ -124,6 +125,8 @@ function RecipeProvider({ children }) {
     recipeprogress,
     setRecipeProgress,
     mealIngredients,
+    auxFavorite,
+    setAuxFavorite,
   };
 
   const drinkContext = {
