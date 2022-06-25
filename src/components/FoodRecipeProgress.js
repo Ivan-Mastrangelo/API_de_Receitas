@@ -7,10 +7,11 @@ import FoodContext from '../context/FoodContext';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import getLocalStorage from '../services/getLocalStorage';
 
 function FoodInProgress({ id }) {
   const {
-    recipeprogress,
+    recipeProgress,
     setRecipeProgress,
     favorite,
     setFavorite,
@@ -19,9 +20,14 @@ function FoodInProgress({ id }) {
   const [msg, setMsg] = useState(false);
   const [first, setFirst] = useState([]);
   const [isDisable, setIsDisable] = useState(true);
+  const [foodRecipeInProgress, setFoodRecipeInProgress] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
+    const verifyProgressRecipe = () => {
+      const recipePhase = getLocalStorage('inProgressRecipes');
+      setFoodRecipeInProgress(recipePhase);
+    };
     const verifyFavorites = () => {
       if (favorite) {
         setFavRecipe(favorite.length > 0 && favorite
@@ -34,12 +40,17 @@ function FoodInProgress({ id }) {
     };
     fetchAPI();
     verifyFavorites();
+    verifyProgressRecipe();
   }, [setRecipeProgress, id, favorite]);
 
+  console.log(recipeProgress);
+  console.log(foodRecipeInProgress);
+  console.log(first);
+
   const setArrayIngredients = () => {
-    if (recipeprogress.length > 0) {
+    if (recipeProgress.length > 0) {
       const vinte = 20;
-      const array = recipeprogress[0];
+      const array = recipeProgress[0];
       const arrayIngredientsAndMeasures = [];
       for (let i = 1; i <= vinte; i += 1) {
         if (array[`strIngredient${i}`] !== ''
@@ -57,6 +68,17 @@ function FoodInProgress({ id }) {
 
   const ingredients = setArrayIngredients();
 
+  const saveProgress = (param) => {
+    const savedRecipes = {
+      meals: {
+        id: param,
+      },
+    };
+    const setProgressOfRecipe = JSON.stringify(savedRecipes);
+    localStorage.setItem('inProgressRecipes', setProgressOfRecipe);
+    setFoodRecipeInProgress(savedRecipes);
+  };
+
   const handleCheck = (e) => {
     e.target.parentNode.classList.toggle('checked');
     let riskIgredient = [];
@@ -68,16 +90,16 @@ function FoodInProgress({ id }) {
       riskIgredient.push(e.target.value);
       setFirst(riskIgredient);
     } else {
-      const unChecked = first.filter((el) => el !== e.target.value);
-      setFirst(unChecked);
+      riskIgredient = first.filter((el) => el !== e.target.value);
+      setFirst(riskIgredient);
     }
     if (first.length + 1 !== ingredients.length) {
       setIsDisable(true);
-      console.log(first.length);
     } else {
       setIsDisable(false);
       console.log(ingredients.length);
     }
+    saveProgress(riskIgredient);
   };
 
   const removeFavorite = () => {
@@ -92,11 +114,11 @@ function FoodInProgress({ id }) {
     const saveRecipes = {
       id,
       type: 'food',
-      nationality: recipeprogress[0].strArea,
-      category: recipeprogress[0].strCategory,
+      nationality: recipeProgress[0].strArea,
+      category: recipeProgress[0].strCategory,
       alcoholicOrNot: '',
-      name: recipeprogress[0].strMeal,
-      image: recipeprogress[0].strMealThumb,
+      name: recipeProgress[0].strMeal,
+      image: recipeProgress[0].strMealThumb,
     };
     let favoriteRecipes = [];
     if (favorite && favorite.every((recipe) => recipe.id !== id)) {
@@ -129,7 +151,7 @@ function FoodInProgress({ id }) {
   return (
     <div>
       {
-        recipeprogress && recipeprogress.map(({
+        recipeProgress && recipeProgress.map(({
           strMealThumb,
           idMeal,
           strMeal,

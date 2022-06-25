@@ -10,7 +10,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function DrinkRecipeProgress({ id }) {
   const {
-    recipeprogress,
+    recipeProgress,
     setRecipeProgress,
     favorite,
     setFavorite,
@@ -37,9 +37,9 @@ function DrinkRecipeProgress({ id }) {
   }, [setRecipeProgress, id, favorite]);
 
   const setArrayIngredients = () => {
-    if (recipeprogress.length > 0) {
+    if (recipeProgress.length > 0) {
       const quinze = 15;
-      const array = recipeprogress[0];
+      const array = recipeProgress[0];
       const arrayIngredientsAndMeasures = [];
       for (let i = 1; i <= quinze; i += 1) {
         if (array[`strIngredient${i}`] !== ''
@@ -94,10 +94,10 @@ function DrinkRecipeProgress({ id }) {
       id,
       type: 'drink',
       nationality: '',
-      category: recipeprogress[0].strCategory,
-      alcoholicOrNot: recipeprogress[0].strAlcoholic,
-      name: recipeprogress[0].strDrink,
-      image: recipeprogress[0].strDrinkThumb,
+      category: recipeProgress[0].strCategory,
+      alcoholicOrNot: recipeProgress[0].strAlcoholic,
+      name: recipeProgress[0].strDrink,
+      image: recipeProgress[0].strDrinkThumb,
     };
     let favoriteRecipes = [];
     if (favorite && favorite.every((recipe) => recipe.id !== id)) {
@@ -130,7 +130,7 @@ function DrinkRecipeProgress({ id }) {
   return (
     <div>
       {
-        recipeprogress && recipeprogress.map(({
+        recipeProgress && recipeProgress.map(({
           strDrinkThumb,
           idDrink,
           strDrink,

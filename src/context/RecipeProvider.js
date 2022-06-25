@@ -32,7 +32,7 @@ function RecipeProvider({ children }) {
   const [prog, setProg] = useState(true);
   const [done, setDone] = useState(false);
   const [favorite, setFavorite] = useState({});
-  const [recipeprogress, setRecipeProgress] = useState([]);
+  const [recipeProgress, setRecipeProgress] = useState([]);
   const [auxFavorite, setAuxFavorite] = useState([]);
 
   // API
@@ -122,7 +122,7 @@ function RecipeProvider({ children }) {
     setDone,
     favorite,
     setFavorite,
-    recipeprogress,
+    recipeProgress,
     setRecipeProgress,
     mealIngredients,
     auxFavorite,
@@ -145,7 +145,7 @@ function RecipeProvider({ children }) {
     setProg,
     done,
     setDone,
-    recipeprogress,
+    recipeProgress,
     setRecipeProgress,
     drinkIngredients,
     favorite,
